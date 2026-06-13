@@ -23,7 +23,7 @@ def process_file(file_path):
         duplicates = df[df.duplicated(subset=['Номер'], keep=False)]
         
         # Очищуємо поле перед виведенням нового результату
-        # state=
+        # щось для тсту
         # 
         # 
         # 'normal' дозволяє програмі змінювати текст
