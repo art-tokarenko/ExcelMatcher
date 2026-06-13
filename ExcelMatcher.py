@@ -3,30 +3,29 @@ from tkinter import filedialog, messagebox, scrolledtext
 import pandas as pd
 import os
 
-def select_file():
+def select_file():# point of entering for user
     file_path = filedialog.askopenfilename(
-        title="Оберіть Excel-файл",
+        title="Оберіть Excel-файл",  # exel only
         filetypes=[("Excel files", "*.xlsx *.xls")]
     )
     if file_path:
         process_file(file_path)
 
-def process_file(file_path):
-    try:
+def process_file(file_path):#searching for error
+    try:#seve us from crash
         df = pd.read_excel(file_path)
         
-        if 'Номер' not in df.columns:
+        if 'Номер' not in df.columns: #hear we ar serching number
             messagebox.showerror("Помилка", "У файлі не знайдено колонку 'Номер'!")
             return
         
-        # Шукаємо дублікати
+        # Look for duplicates
         duplicates = df[df.duplicated(subset=['Номер'], keep=False)]
         
-        # Очищуємо поле перед виведенням нового результату
-        # щось для тсту
+        # Clear the field before displaying a new result
         # 
         # 
-        # 'normal' дозволяє програмі змінювати текст
+        # 'normal' Allows programs to change text
         txt_area.config(state='normal')
         txt_area.delete('1.0', tk.END)
         
@@ -53,7 +52,7 @@ def copy_to_clipboard():
     root.clipboard_append(text)
    
 
-# Інтерфейс
+# Іnteface
 root = tk.Tk()
 root.title("Аналіз дублікатів")
 root.geometry("400x400")
@@ -63,7 +62,7 @@ copy_btn.pack(pady=5)
 btn = tk.Button(root, text="Обрати файл для перевірки", command=select_file)
 btn.pack(pady=10)
 
-# Поле для результатів
+# results
 txt_area = scrolledtext.ScrolledText(root, width=40, height=15)
 txt_area.pack(pady=10, padx=10)
 
